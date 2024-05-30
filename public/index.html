@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<!-- THIS index.html FILE WAS IN THE ROOT DIRECTORY FOR ALL OF MODULE 1  -->
+<!-- BUT THEN FOR THE MODULE 1 ASSIGNMENT, I MOVED IT TO THE PUBLIC FOLDER -->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our first React page</title>
+    <!-- WE CAN ADD REACT AS TWO-PART SCRIPT TAG ADDITION -->
+    <!-- first part is react core for state manipulation and more  -->
+    <!-- second part is react DOM module which converts react components to dom elements that browser understands -->
+    <!-- these two items are available in many CDNs online; later we'll use npm to install react and get it that way, but for now we take straight from CDN below two lines -->
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+
+    <!-- add only in lec 6 to render jsx: -->
+    <script src="https://unpkg.com/@babel/standalone@7/babel.min.js"></script>
+</head>
+<body>
+
+    <h1>List of employees:</h1>
+    <!-- next, make a div that holds our react elements that we create. this div needs an id -->
+    <div id="content"></div>
+
+
+    <!-- script tag below used to be just <script> but in lect 6 we change it to type text babel  -->
+
+
+    <!-- script tag used in lec 7: <script type = "text/babel"> but in lec 8 we change it to:  -->
+    <!-- <script type = "text/babel" src="/src/employees.jsx"> -->
+
+    
+    <!-- in lec 9 we npm install babel and convert to pure js: -->
+    <script src="employees.js">
+
+    
+        // syntax: React.createElement(type, [props], [..children])
+        // type is any html tag like a div on this page, or a react component
+        // props is object  contains html or custom  component properties
+        // 0 or more children elements created using createElement function itself
+
+        // now make simple nested elements:
+        // create new div that's nested within our existing div
+        // include any propertie we want to pass into this div element
+        // we're passing in an object with title outer div
+        // final parameter is what we want to output, which can be text string like hello world
+        // or can be something more complex that's rendered into dom dynamically
+        
+        // const element = React.createElement(
+        //     'ul', 
+        //     {style: {'color': 'blue', 'font-size': '24px'}}, // changed from title to style, to see how to use css; when we use jsx this syntax changes
+        //     React.createElement('li', null, 'Zak Ruvulcaba'),
+        //     React.createElement('li', null, 'Sally Smith'),
+        //     React.createElement('li', null, 'Holly Unlikely'),
+        // ) 
+        // ReactDOM.render(element, document.getElementById('content'))
+        // above, we created a UL and styled it with css and 3-item list
+        // above, very unmanagable to do createElement over and over
+        // to fix this problem, react has a markup language called jsx
+        // jsx can construct element or element hierarchy within react code; resembles html
+        // go way down to see this
+
+
+
+
+        // COMMENTED OUT IN LEC 6; USED IN LEC 5:
+        // const element = React.createElement(
+        //     'div', 
+        //     {title: 'Outer div'}, 
+        //     // 'Hello World' // primitive option
+        //     React.createElement(
+        //         'h1', // NOW our hello world is within an H1 at index.html
+        //         null, 
+        //         'Hello World'
+        //     ) // not passing in properties, so say null for props
+        // )
+        // ReactDOM.render(element, document.getElementById('content'))
+
+        // we're creating an element above dynamically. it's called div. it has title as outerdiv and has ocntent hello world
+        // this is a js object representing what's shown on screen. this can be nested collection of other elements.
+        // this is also called a virtual dom (not yet real DOM in browser); right now it's just js objects deeply nested
+        // it not only says what objects need to be created but also additional info of tree that helps in optimization
+        // each react element needs to be transfered to real dom. do to this, we wrap react.render around this createelement function.
+        // review: create virtual dom element called div, then render it into real DOM with render function
+        // render function accepts two parameters. need to tell it what to render (from createelement), and then where to render it TO
+        // we want to render it to content div. we'll use getelementbyid in second parameter just like in js
+        // open live server to test it. browser will show hello world message. so react is working.
+        // nothing will show up in dev tools under components
+        // but we can see elements in dev tools in browser and see that we did successfully get our content into the right div and we rendered it all using react. 
+        // the new div we inserted has the ID 'outer div' and content hello world like we want. 
+
+        // ELEMENTS ARE CREATED WITHIN COMPONENTS. above, we created an element using react. 
+
+        // HOW TO DO ALL THIS IN JSX, LEC 6:
+        // below we style with jsx fontSize instead of css font-size; jsx has no hyphens
+        // const element = (
+        //     <ul style={{'color':'blue', 'fontSize': '24px'}}> 
+        //         <li>Zak</li>
+        //         <li>Sally</li>
+        //         <li>Jimee</li>                
+        //     </ul>
+
+        // )
+        // ReactDOM.render(element, document.getElementById('content'))
+        // browser doesn't understand jsx; we need to transform into js with createElement or something similar
+        // so we need help from a separate compiler called babel (which compiles jsx to js and much more)
+        // in production, you want to precompile code and inject into browser, but for prototyping this is good
+        // remember we need script reference to babel at the top and we need to add type = text/babel at top of this script field
+        // we hooked babel compiler into script and it rendered jsx for us!
+        // go inspect and see plain old html has been rendered
+
+        // START OF LECT 7 NEW CODE
+        // let zak = 'Zak'
+        // let sally = 'Sally'
+        // let holly = 'Holly'
+        // let amol = 'Amol Shookup'
+        
+        // // below we now use {} within the li
+        // const element = (
+        //     <ul style={{'color':'blue', 'fontSize': '24px'}}> 
+        //         <li>{zak}</li>
+        //         <li>{sally}</li>
+        //         <li>{holly}</li>
+        //         <li>{amol.toUpperCase().slice(0,4)}</li>                
+        //     </ul>
+
+        // )
+        // ReactDOM.render(element, document.getElementById('content'))
+
+        // whenever we use jsx expressions in curly braces,we can use any js functions in the braces
+        // see example of the toUpperCase above for Amol's name. 
+        // END OF LEC 7 NEW CODE
+
+        // START OF LEC 8
+        // make new file src/employees.jsx
+        // all code that was in script tag moves to this jsx file
+        // now we add src="" to the script tag; we keep the babel part
+        // END OF LEC 8
+
+        // START OF LEC 9
+        // need to make package.json file, do terminal -> new terminal , run:
+        // npm init -y
+        // next, need to install babel core and cli
+        // npm i --save-dev @babel/core @babel/cli
+        // above installs them as dev dependencies
+        // then open package.json to make sure installed (can see them under devDependencies)
+        // this is not a global install; so babel won't be available in path and we have to invoke it ourselves:
+        // in terminal run: node_modules/.bin/babel --version
+        // might get error if no permission, type:
+        // Get-ExecutionPolicy -List
+        // shows currentuser as undefined, which is bad
+        // can change current user (and maybe others):
+        // Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+        // now when we do get executionpolicy again, my status is now remotesigned, which prof ruvulcaba says is good
+        // then again try: node_modules/.bin/babel --version
+        // and we get correct version. now we can execute scripts on this computer. 
+
+        // WE COULd've installed babel cli globally with --global or -g option in npm to have access to it
+        // in any directory without prefixing the path; but we want all installations local to the project
+        // to avoid dealing with version differences in packages across projects. latest version of npm
+        // give us npx command to show path of any executable:
+        // npx babel --version
+        // also returns version
+
+        // now we need to transform jsx to regular js, using babel plugin/preset. babel can do lots of transforms 
+        // presets from other packages
+        // jsx transform preset is waht we need:
+        // npm i --save-dev @babel/preset-react
+        // now preset-react added to package.json
+        // now we can transform employees.jsx to pure js
+        // babel command line takes input directory with applicable source files and presets and output directory as options
+        // we want public output:
+        // npx babel src --presets @babel/react --out-dir public
+        // it says it successfully compiled 1 file with Babel. we have new public directory
+        // with employees.js new for us; entirely in pure JS code
+        // createElement calls have been added that weren't there in the jsx file; and other changes
+        // 
+
+        // now we can change index.html to get rid of runtime transformer and refer directly to employees.js
+        // new script tag: <script src="/public/employees.js">
+        // we DO need to re-run npx babel src --presets @babel/react --out-dir public
+        // each time we change employees.jsx (this is called recompilation)
+
+        // END OF LEC 9
+
+        // START OF LEC 10
+        // we can start the project using npm start, but npm has other custom commands
+        // custom commands useful when there are many command line parameters needed
+        // can add custom to scripts section of package.json
+        // can run with npm run and script name in console
+        // let's add script called compile which will do 
+        // all transforms in package.json that we did in lec 9
+        // don't need to write npx since node will figure out locations automatically
+        // of all locally installed packages
+
+        // under scripts in package.json, we used to have and are now deleting:
+        // "test": "echo \"Error: no test specified\" && exit 1"
+        // we're adding:
+        // "compile": "babel src --presets @babel/react src --out-dir public"
+        // now we just run npm run compile in terminal and it recompiles. but still annoying. 
+
+        // we need --watch option to automatically make updates
+        // add a new script in package.json called watch:
+        // "watch": "babel src --presets @babel/react src --out-dir public --watch --verbose"
+        // --watch asks babel to look for changes in source files
+        // verbose gives us an update that a change has been made, in the console. 
+        // npm run watch
+        // change employees.jsx, hit save, and it automatically ends up in our liveserver preview
+
+        // END OF LEC 10
+
+
+    </script>
+    
+</body>
+</html>
